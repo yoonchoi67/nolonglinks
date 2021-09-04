@@ -33,7 +33,10 @@ after_success:
   - aws configure set region ap-northeast-2
 
   - docker build -t yoonchoi67/nolonglinks ./django-webapp
-  - aws ecr get-login-password --region ap-northeast-2 | docker login --username AWS --password-stdin 388250753725.dkr.ecr.ap-northeast-2.amazonaws.com
+  # https://stackoverflow.com/questions/60583847/aws-ecr-saying-cannot-perform-an-interactive-login-from-a-non-tty-device-after
+  - docker login -u AWS -p $(aws ecr get-login-password --region ap-northeast-2) 388250753725.dkr.ecr.ap-northeast-2.amazonaws.com
+  # - aws ecr get-login-password --region ap-northeast-2 | docker login --username AWS --password-stdin 388250753725.dkr.ecr.ap-northeast-2.amazonaws.com
+
   - docker tag yoonchoi67/nolonglinks:latest 388250753725.dkr.ecr.ap-northeast-2.amazonaws.com/nolonglinks:latest
   - docker push 388250753725.dkr.ecr.ap-northeast-2.amazonaws.com/nolonglinks:latest
 
