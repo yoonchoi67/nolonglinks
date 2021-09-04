@@ -1,6 +1,10 @@
 sudo: required
 
-services:
+language: python
+python:
+  - "3.8"
+
+  services:
   - docker
 
 before_install:
@@ -19,8 +23,9 @@ after_success:
   # push to ecr
   - pip install --user awscli
   - pip install ecs-deploy==1.12.0
-  - pip install ordered_dict
-  
+  # - pip install ordereddict
+  # - pip install urllib3
+
   # configuration
   - aws configure set aws_access_key_id $AWS_ACCESS_KEY
   - aws configure set aws_secret_access_key $AWS_SECRET_KEY
