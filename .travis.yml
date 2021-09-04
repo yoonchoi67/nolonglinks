@@ -16,6 +16,7 @@ after_success:
   # - docker push yoonchoi67/nginx
   
   # push to ecr
+  - pip install awscli
   - aws ecr get-login-password --region ap-northeast-2 | docker login --username AWS --password-stdin 388250753725.dkr.ecr.ap-northeast-2.amazonaws.com
   - docker tag yoonchoi67/nolonglinks:latest 388250753725.dkr.ecr.ap-northeast-2.amazonaws.com/nolonglinks:latest
   - docker push 388250753725.dkr.ecr.ap-northeast-2.amazonaws.com/nolonglinks:latest
