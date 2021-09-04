@@ -17,11 +17,12 @@ after_success:
   
   # push to ecr
   - aws ecr get-login-password --region ap-northeast-2 | docker login --username AWS --password-stdin 388250753725.dkr.ecr.ap-northeast-2.amazonaws.com
-  - docker tag nolonglinks:latest 388250753725.dkr.ecr.ap-northeast-2.amazonaws.com/nolonglinks:latest
+  - docker tag yoonchoi67/nolonglinks:latest 388250753725.dkr.ecr.ap-northeast-2.amazonaws.com/nolonglinks:latest
   - docker push 388250753725.dkr.ecr.ap-northeast-2.amazonaws.com/nolonglinks:latest
 
   # push to ecs
-  - ecs deploy url-shortener-cluster service-name --image nolonglinks-task-definition:4 yoonchoi67/nolonglinks
+  # - ecs deploy url-shortener-cluster service-name --image nolonglinks-task-definition:4 yoonchoi67/nolonglinks
+  - ecs deploy url-shortener-cluster service-name --task yoonchoi67/nolonglinks #--image nolonglinks-task-definition:4 yoonchoi67/nolonglinks
 
   # deploy:
 #   provider: script
