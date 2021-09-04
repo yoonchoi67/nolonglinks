@@ -4,12 +4,12 @@ services:
   - docker
 
 before_install:
-  - docker build -t choijong/nolonglinks .
+  - docker build -t yoonchoi67/nolonglinks .
 
 script:
-  - docker run -dp 8000:8000 choijong/nolonglinks 
-  
+  - docker run -dp 8000:8000 yoonchoi67/nolonglinks 
+
 after_success:
   - echo "$DOCKER_PW" | docker login -u "$DOCKER_ID" --password-stdin
 
-  - docker push choijong/nolonglinks
+  - docker push yoonchoi67/nolonglinks
