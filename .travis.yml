@@ -4,12 +4,25 @@ services:
   - docker
 
 before_install:
-  - docker build -t yoonchoi67/nolonglinks .
+  - docker build -t yoonchoi67/nolonglinks ./django-webapp
+  - docker build -t yoonchoi67/nginx ./nginx
 
 script:
   - docker run -dp 8000:8000 yoonchoi67/nolonglinks 
 
 after_success:
   - echo "$DOCKER_PW" | docker login -u "$DOCKER_ID" --password-stdin
-
   - docker push yoonchoi67/nolonglinks
+  - docker push yoonchoi67/nginx
+
+deploy:
+  provider: elasticbeanstalk
+  region: ap-northeast-2
+  app: nolonglinks
+  env: Nolonglinks-env
+  bucket_name: elasticbeanstalk-ap-northeast-2-388250753725
+  bucket_path: nolonglinks
+  on:
+    branch: master
+  access_key_id: $AWS_ACCESS_KEY
+  secret_access_key: $AWS_SECRET_KEY

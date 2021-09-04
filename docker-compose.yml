@@ -1,6 +1,15 @@
 version: "3.9"
    
 services:
+  nginx:
+      depends_on:
+        - web
+      restart: always # because it is routing traffic to our entire app
+      build:
+        dockerfile: Dockerfile
+        context: ./nginx
+      ports:
+        - '80:80'
   # db:
   #   image: postgres
   #   volumes:
@@ -11,8 +20,8 @@ services:
   #     - POSTGRES_PASSWORD=postgres
   web:
     build:
-      dockerfile: dockerfile
-      context: ./
+      dockerfile: Dockerfile
+      context: ./django-webapp
     command: python manage.py runserver 0.0.0.0:8000
     # volumes:
     #   - .:/app

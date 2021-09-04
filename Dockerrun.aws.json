@@ -1,0 +1,27 @@
+{
+    "AWSEBDockerrunVersion": 2,
+    "containerDefinitions": [
+      {
+        "name": "nginx",
+        "image": "lukondefmwila/dkr-multicontainer-app-nginx",
+        "hostname": "nginx",
+        "essential": true,
+        "portMappings": [
+          {
+            "hostPort": 80,
+            "containerPort": 80
+          }
+        ],
+        "links": ["nolonglinks"],
+        "memory": 100
+      },
+      {
+        "name": "nolonglinks",
+        "image": "yoonchoi67/nolonglinks",
+        "hostname": "nolonglinks",
+        "essential": false,
+        "memory": 500
+      }
+    ]
+
+}
