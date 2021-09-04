@@ -21,7 +21,7 @@ after_success:
   - docker push 388250753725.dkr.ecr.ap-northeast-2.amazonaws.com/nolonglinks:latest
 
   # push to ecs
-  ecs deploy url-shortener-cluster service-name --image nolonglinks-task-definition:4 yoonchoi67/nolonglinks
+  - ecs deploy url-shortener-cluster service-name --image nolonglinks-task-definition:4 yoonchoi67/nolonglinks
 
   # deploy:
 #   provider: script
