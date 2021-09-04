@@ -7,8 +7,8 @@ before_install:
   - docker build -t choijong/nolonglinks .
 
 script:
-  - docker run choijong/nolonglinks python manage.py runserver 8000
-
+  - docker run -dp 8000:8000 choijong/nolonglinks 
+  
 after_success:
   - echo "$DOCKER_PW" | docker login -u "$DOCKER_ID" --password-stdin
 
