@@ -3,7 +3,7 @@
     "containerDefinitions": [
       {
         "name": "nginx",
-        "image": "lukondefmwila/dkr-multicontainer-app-nginx",
+        "image": "yoonchoi67/nginx",
         "hostname": "nginx",
         "essential": true,
         "portMappings": [
