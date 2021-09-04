@@ -6,43 +6,41 @@ services:
 before_install:
   # - docker build -t yoonchoi67/nolonglinks ./django-webapp
   # - docker build -t yoonchoi67/nginx ./nginx
-  # install necessary dependency for ecs-deploy
-  # - add-apt-repository ppa:eugenesan/ppa
-  # - apt-get update
-  # - apt-get install jq -y
-
-  # install ecs-deploy
-  # - curl https://raw.githubusercontent.com/silinternational/ecs-deploy/master/ecs-deploy | \
-  #   sudo tee -a /usr/bin/ecs-deploy
-  # - sudo chmod +x /usr/bin/ecs-deploy
 script:
-  - docker run -dp 8000:8000 yoonchoi67/nolonglinks 
+  # - docker run -dp 8000:8000 yoonchoi67/nolonglinks 
 
 after_success:
   # - echo "$DOCKER_PW" | docker login -u "$DOCKER_ID" --password-stdin
+
+  # push to docker hub
   # - docker push yoonchoi67/nolonglinks
   # - docker push yoonchoi67/nginx
   
   # push to ecr
   - pip install --user awscli
   - pip install ecs-deploy==1.12.0
-  # - aws ecr get-login-password
 
+  # configuration
   - aws configure set aws_access_key_id $AWS_ACCESS_KEY
   - aws configure set aws_secret_access_key $AWS_SECRET_KEY
   - aws configure set region ap-northeast-2
 
-  - docker build -t yoonchoi67/nolonglinks ./django-webapp
+  # - docker build -t yoonchoi67/nolonglinks ./django-webapp
+  - docker build -t nolonglinks ./django-webapp
+  
   # https://stackoverflow.com/questions/60583847/aws-ecr-saying-cannot-perform-an-interactive-login-from-a-non-tty-device-after
-  - docker login -u AWS -p $(aws ecr get-login-password --region ap-northeast-2) 388250753725.dkr.ecr.ap-northeast-2.amazonaws.com
+  # - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+  - aws ecr get-login-password --region ap-northeast-2 | docker login -u AWS --password-stdin 388250753725.dkr.ecr.ap-northeast-2.amazonaws.com
+  # - docker login -u AWS -p $(aws ecr get-login-password --region ap-northeast-2) --password-stdin 388250753725.dkr.ecr.ap-northeast-2.amazonaws.com
   # - aws ecr get-login-password --region ap-northeast-2 | docker login --username AWS --password-stdin 388250753725.dkr.ecr.ap-northeast-2.amazonaws.com
 
-  - docker tag yoonchoi67/nolonglinks:latest 388250753725.dkr.ecr.ap-northeast-2.amazonaws.com/nolonglinks:latest
+  # - docker tag yoonchoi67/nolonglinks:latest 388250753725.dkr.ecr.ap-northeast-2.amazonaws.com/nolonglinks:latest
+  - docker tag nolonglinks:latest 388250753725.dkr.ecr.ap-northeast-2.amazonaws.com/nolonglinks:latest
   - docker push 388250753725.dkr.ecr.ap-northeast-2.amazonaws.com/nolonglinks:latest
 
   # push to ecs
   # - ecs deploy url-shortener-cluster service-name --image nolonglinks-task-definition:4 yoonchoi67/nolonglinks
-  - ecs deploy url-shortener-cluster service-name --task yoonchoi67/nolonglinks #--image nolonglinks-task-definition:4 yoonchoi67/nolonglinks
+  - ecs deploy url-shortener-cluster service-name --task nolonglinks #--image nolonglinks-task-definition:4 yoonchoi67/nolonglinks
 
   # deploy:
 #   provider: script
