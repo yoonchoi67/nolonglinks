@@ -11,7 +11,7 @@ services:
       ports:
         - '80:80'
   # db:
-  #   image: postgres
+  #   image: postgres 
   #   volumes:
   #     - ./data/db:/var/lib/postgresql/data
   #   environment:
