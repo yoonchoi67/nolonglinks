@@ -27,8 +27,10 @@ after_success:
   - pip install --user awscli
   - pip install ecs-deploy==1.12.0
   # - aws ecr get-login-password
+  
   - aws configure set aws_access_key_id $AWS_ACCESS_KEY
   - aws configure set aws_secret_access_key $AWS_SECRET_KEY
+  - aws configure set region ap-northeast-2
 
   - docker build -t yoonchoi67/nolonglinks ./django-webapp
   # - aws ecr get-login-password --region ap-northeast-2 | docker login --username AWS --password-stdin 388250753725.dkr.ecr.ap-northeast-2.amazonaws.com
