@@ -19,8 +19,8 @@ deploy:
   provider: elasticbeanstalk
   region: ap-northeast-2
   app: nolonglinks
-  env: Nolonglinks-env
-  bucket_name: elasticbeanstalk-ap-northeast-2-388250753725
+  env: Nolonglinks-env-1
+  bucket_name: nolonglinks-bucket-name
   bucket_path: nolonglinks
   on:
     branch: master
