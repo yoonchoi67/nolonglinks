@@ -26,11 +26,10 @@ after_success:
   - aws configure set region ap-northeast-2
   # 
   # https://stackoverflow.com/questions/60583847/aws-ecr-saying-cannot-perform-an-interactive-login-from-a-non-tty-device-after
-  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+  # - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
   # - aws ecr get-login-password --region ap-northeast-2 | docker login -u AWS --password-stdin 388250753725.dkr.ecr.ap-northeast-2.amazonaws.com
-  # - docker login -u AWS -p $(aws ecr get-login-password --region ap-northeast-2) --password-stdin 388250753725.dkr.ecr.ap-northeast-2.amazonaws.com
-  # - docker login -u AWS -p $(aws ecr get-login-password ap-northeast-2) 388250753725.dkr.ecr.ap-northeast-2.amazonaws.com
-  - aws ecr get-login-password --region ap-northeast-2 
+  - docker login -u AWS -p $(aws ecr get-login-password --region ap-northeast-2) --password-stdin 388250753725.dkr.ecr.ap-northeast-2.amazonaws.com
+  # - aws ecr get-login-password --region ap-northeast-2 
   # - aws ecr get-login-password --region ap-northeast-2 | docker login --username AWS --password-stdin 388250753725.dkr.ecr.ap-northeast-2.amazonaws.com
 
 
