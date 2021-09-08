@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-0lqj2h0#qwe8h+wwpl7(2ft-c&d-kt527e^-xw0^u&83cwwude
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['0.0.0.0', 'localhost', '3.37.126.93', 'nolonglinks.com', 'www.nolonglinks.com', 'web', 'Nolonglinks-env-1.eba-neugifsp.ap-northeast-2.elasticbeanstalk.com']
+ALLOWED_HOSTS = ['0.0.0.0', 'localhost', '3.37.45.62', 'nolonglinks.com', 'www.nolonglinks.com', 'ec2-3-37-45-62.ap-northeast-2.compute.amazonaws.com']
 
 
 # Application definition
