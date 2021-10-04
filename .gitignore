@@ -1,2 +1,3 @@
 /django-venv
-/django-webapp/nolonglinks/__pycache__
+__pycache__/
+.env

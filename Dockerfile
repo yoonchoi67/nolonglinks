@@ -1,8 +1,12 @@
-# syntax=docker/dockerfile:1
-FROM python:3
-ENV PYTHONUNBUFFERED=1
-WORKDIR /app
-COPY requirements.txt .
+FROM python:3.8.5-alpine
+
+RUN pip install --upgrade pip
+
+COPY ./requirements.txt .
 RUN pip install -r requirements.txt
-COPY ./django-webapp /app/
-CMD [ "python", "manage.py", "runserver", "0.0.0.0:8000"]
+
+COPY ./django-webapp /app
+WORKDIR /app
+
+COPY ./entrypoint.sh /
+ENTRYPOINT ["sh", "/entrypoint.sh"]
